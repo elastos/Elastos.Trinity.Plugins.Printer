@@ -24,8 +24,9 @@ package de.appplant.cordova.plugin.printer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -41,7 +42,8 @@ class PrintContent
     enum ContentType { PLAIN, HTML, IMAGE, PDF, UNSUPPORTED }
 
     // Helper class to deal with io operations
-    private final @NonNull PrintIO io;
+    private final @NonNull
+    PrintIO io;
 
     /**
      * Initializes the asset utils.
