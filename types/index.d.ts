@@ -1,4 +1,52 @@
+/*
+* Copyright (c) 2018-2021 Elastos Foundation
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 
+/**
+* This plugin allows dApps to print content on a printer already configured for the device.
+*
+* <br><br>
+* Usage:
+* <br>
+* let options: PrintOptions = {
+*      name: 'MyDocument',
+*      orientation: "portrait",
+*      monochrome: true
+* }
+*
+* window.cordova.plugins.printer.getPrintableTypes((printableTypes)=>{
+* });
+*
+* window.cordova.plugins.printer.print("A string, some HTML, etc.", options, (wasPrinted)=>{
+*      console.log("Document printed successfully?", wasPrinted);
+* });
+*/
+
+interface Window {
+    cordova: {
+        plugins: {
+            printer: PrinterPlugin.Printer;
+        }
+    }
+}
 
 declare namespace PrinterPlugin {
     export interface FontOptions {
@@ -160,38 +208,15 @@ declare namespace PrinterPlugin {
 
     export interface Printer {
         /**
-         * Test if the printer service is able to print
-         * the ressource specified by URL.
-         *
-         * TODO: scope format: unknown yet
-         */
-        canPrintItem(uri: string, callback: (available: boolean, count: any) => void, scope);
-
-        /**
          * Returns a list of all printable document types.
-         * // TODO: callback format: unknown yet
-         * // TODO: scope format: unknown yet
          */
-        getPrintableTypes(callback: (res: any) => void, scope);
-
-        /**
-         * Displays system interface for selecting a printer.
-         *
-         * // TODO: callback format: unknown yet
-         * // TODO: scope format: unknown yet
-         */
-        pick(options: PrintOptions, callback: (res: any) => void, scope);
+        getPrintableTypes(callback: (printableTypes: string[]) => void);
 
         /**
          * Sends the content to the printer.
          *
          * @param content The plain/html text or a file URI.
          */
-        print(content: string | HTMLElement, options: PrintOptions, callback: (res: any) => void, scope);
-
-        /**
-         * The (platform specific) default settings.
-         */
-        getDefaults(): PrintOptions;
+        print(content: string | HTMLElement, options: PrintOptions, callback: (printed: boolean) => void);
     }
 }
