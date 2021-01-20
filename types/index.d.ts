@@ -40,12 +40,16 @@
 * });
 */
 
+interface CordovaPlugins {
+    printer: PrinterPlugin.Printer;
+}
+
+interface Cordova {
+    plugins: CordovaPlugins;
+}
+
 interface Window {
-    cordova: {
-        plugins: {
-            printer: PrinterPlugin.Printer;
-        }
-    }
+    cordova: Cordova;
 }
 
 declare namespace PrinterPlugin {
